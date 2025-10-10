@@ -1,0 +1,36 @@
+server:
+  context-path: /
+  port: 8080
+  session:
+    persistent: true
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${BD_USER}
+    password: ${BD_PASSWORD}
+    url: ${BD_URL}
+    hikari:
+      connection-init-sql: SELECT 1
+      connection-test-query: SELECT 1
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      maximum-pool-size: 10
+      validation-timeout: 5000
+
+  jpa:
+    hibernate:
+      ddl-auto: update #validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect  # Use MySQL8Dialect para MySQL 8.x
+        format_sql: true
+
+app:
+  description: '@project.description@'
+  encoding: '@project.build.sourceEncoding@'
+  java-version: '@java.version@'
+  msg: Project Spring boot
+  name: '@project.name@'
+  version: '@project.version@'
