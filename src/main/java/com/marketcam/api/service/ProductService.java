@@ -38,16 +38,6 @@ public class ProductService {
         return productDTOs;
     }
 
-    public List<ProductDTO> findAllByFilter(ProductFilterDTO productFilterDTO){
-        List<Product> products = productRepository.findAllByFilter(productFilterDTO);
-        List<ProductDTO> productDTOs = new ArrayList<>();
-        for(Product product : products){
-            productDTOs.add(ProductMapper.convertToDTO(product, ProductDTO.class));
-        }
-
-        return productDTOs;
-    }
-
     public Boolean update(ProductDTO productDTO){
         Product existingProduct = productRepository.getReferenceById(productDTO.getId());
 
