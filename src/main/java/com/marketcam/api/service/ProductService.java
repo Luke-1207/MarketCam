@@ -9,15 +9,12 @@ import com.marketcam.api.model.Product;
 import com.marketcam.api.repository.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +25,7 @@ public class ProductService {
     public ProductDTO create(ProductCreateDTO productCreateDTO, MultipartFile image) {
         Product product = ProductCreateMapper.convertToEntity(productCreateDTO, Product.class);
         if (image != null && !image.isEmpty()) {
-            product.setImageData(convertImageBytesToString(image));
+            product.setImageData(convertImageToBytes(image));
         }
         product = productRepository.save(product);
 
@@ -56,7 +53,7 @@ public class ProductService {
 
         Product product = ProductMapper.convertToEntity(productUpdateDTO, Product.class);
         if (image != null && !image.isEmpty()) {
-            product.setImageData(convertImageBytesToString(image));
+            product.setImageData(convertImageToBytes(image));
         }
 
         Product updatedProduct = productRepository.save(product);
@@ -68,10 +65,9 @@ public class ProductService {
         productRepository.delete(product);
     }
 
-    private String convertImageBytesToString(MultipartFile image) {
+    private byte[] convertImageToBytes(MultipartFile image) {
         try {
-            byte[] imagemBytes = image.getBytes();
-            return Base64.getEncoder().encodeToString(imagemBytes);
+            return image.getBytes();
         } catch (IOException e) {
             throw new RuntimeException("Erro ao processar imagem", e);
         }

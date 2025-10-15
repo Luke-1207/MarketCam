@@ -19,20 +19,20 @@ public class Purchase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @ManyToMany
     @JoinTable(
-            name = "purchase_product",
-            joinColumns = @JoinColumn(name = "purchase_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
+            name = "compra_produto",
+            joinColumns = @JoinColumn(name = "id_compra"),
+            inverseJoinColumns = @JoinColumn(name = "id_produto")
     )
     private List<Product> products;
 
     @Column(name = "preco_total", nullable = false)
     private Double totalPrice = 0.0;
 
-    @Column(name = "quantidade", nullable = false)
+    @Column(name = "data_hora_compra", nullable = false)
     private LocalDateTime purchaseDate;
 
 }

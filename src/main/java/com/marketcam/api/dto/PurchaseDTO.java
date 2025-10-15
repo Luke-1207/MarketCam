@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class PurchaseDTO {
 
-    private Long id;
+    private Integer id;
     private List<ProductDTO> products;
     private Double totalPrice;
     private LocalDateTime purchaseDate;

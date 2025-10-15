@@ -16,15 +16,15 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
-    @Column(name = "nome", nullable = false, length = 100)
+    @Column(name = "nome", nullable = false)
     private String name;
 
     @Column(name = "preco", nullable = false)
     private Double price;
 
-    @Column(name = "categoria", nullable = false)
+    @Column(name = "categoria")
     private String category;
 
     @Column(name = "quantidade", nullable = false)
@@ -32,6 +32,6 @@ public class Product {
 
     @Lob
     @Column(name = "imagem", columnDefinition = "LONGTEXT")
-    private String imageData;
+    private byte[] imageData;
 
 }

@@ -1,8 +1,9 @@
 server:
-  context-path: /
   port: 8080
   session:
     persistent: true
+  servlet:
+    context-path: /marketcam-api
 
 spring:
   datasource:

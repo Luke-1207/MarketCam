@@ -11,11 +11,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ProductDTO {
 
-    private Long id;
+    private Integer id;
     private String name;
     private Double price;
     private String category;
     private Integer quantity;
-    private String imageData;
+    private byte[] imageData;
 
 }
