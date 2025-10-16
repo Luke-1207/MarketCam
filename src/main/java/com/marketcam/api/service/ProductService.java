@@ -32,8 +32,9 @@ public class ProductService {
         return ProductMapper.convertToEntity(product, ProductDTO.class);
     }
 
-    public ProductDTO findById(Long idProduct) {
-        Product product = productRepository.getReferenceById(idProduct);
+    public ProductDTO findById(Integer idProduct) {
+        Product product = productRepository.findById(idProduct)
+                .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado com ID: " + idProduct));
         return ProductMapper.convertToDTO(product, ProductDTO.class);
     }
 
@@ -49,7 +50,7 @@ public class ProductService {
 
     public ProductDTO update(ProductUpdateDTO productUpdateDTO, MultipartFile image){
         productRepository.findById(productUpdateDTO.getId())
-                .orElseThrow(() -> new EntityNotFoundException("Produto com ID " + productUpdateDTO.getId() + " não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado com ID: " + productUpdateDTO.getId()));
 
         Product product = ProductMapper.convertToEntity(productUpdateDTO, Product.class);
         if (image != null && !image.isEmpty()) {
@@ -60,8 +61,9 @@ public class ProductService {
         return ProductMapper.convertToDTO(updatedProduct, ProductDTO.class);
     }
 
-    public void delete(Long idProduct) {
-        Product product = productRepository.getReferenceById(idProduct);
+    public void delete(Integer idProduct) {
+        Product product = productRepository.findById(idProduct)
+                .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado com ID: " + idProduct));
         productRepository.delete(product);
     }
 

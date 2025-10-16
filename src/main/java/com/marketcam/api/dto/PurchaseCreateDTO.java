@@ -5,16 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PurchaseDTO {
-    private Integer id;
-    private List<PurchaseItemResponseDTO> products;
-    private Double totalPrice;
-    private LocalDateTime purchaseDate;
+public class PurchaseCreateDTO {
+    private List<PurchaseItemDTO> items;
 }
