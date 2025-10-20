@@ -1,5 +1,7 @@
 package com.marketcam.api.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marketcam.api.dto.ProductCreateDTO;
 import com.marketcam.api.dto.ProductDTO;
 import com.marketcam.api.dto.ProductUpdateDTO;
@@ -21,9 +23,12 @@ public class ProductController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ProductDTO> create(
-            @RequestPart("produto") ProductCreateDTO productCreateDTO,
+            @RequestPart("produto") String productCreateDTOString,
             @RequestPart(value = "imagem") MultipartFile image
-    ){
+    ) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ProductCreateDTO productCreateDTO = objectMapper.readValue(productCreateDTOString, ProductCreateDTO.class);
+
         return ResponseEntity.ok(productService.create(productCreateDTO, image));
     }
 
@@ -39,9 +44,12 @@ public class ProductController {
 
     @PutMapping()
     public ResponseEntity<ProductDTO> update(
-            @RequestPart("produto") ProductUpdateDTO productUpdateDTO,
+            @RequestPart("produto") String productUpdateDTOString,
             @RequestPart(value = "imagem", required = false) MultipartFile image
-    ){
+    ) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ProductUpdateDTO productUpdateDTO = objectMapper.readValue(productUpdateDTOString, ProductUpdateDTO.class);
+
         return ResponseEntity.ok(productService.update(productUpdateDTO, image));
     }
 
